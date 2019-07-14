@@ -59,14 +59,10 @@
                 'lang' => $lang
             ]);
 
-
             $apiUrl = $this->getApiUrl('/v1/weather/') . $pinpointCode;
 
             $response = $this->getApiData($apiUrl, $query);
-            dump($response);
 
-
-//            return new Weather();
         }
 
         /**
@@ -101,7 +97,23 @@
                 ]
             )->getContent();
 
-            return json_decode($response, false);
+            $response_json = json_decode($response, false);
+            $data          = [];
+
+            foreach ($response_json->{'Daily'} as $key => $value) {
+
+                $data[$key]['pinpoint_code']   = $response_json->{'PinpointCode'};
+                $data[$key]['data_time']       = $response_json->{'Daily'}{$key}->{'DateTime'};
+                $data[$key]['weather_code']    = $response_json->{'Daily'}{$key}->{'WeatherCode'};
+                $data[$key]['weather_name']    = $response_json->{'Daily'}{$key}->{'WeatherName'};
+                $data[$key]['temperature_min'] = $response_json->{'Daily'}{$key}->{'TemperatureMin'};
+                $data[$key]['temperature_max'] = $response_json->{'Daily'}{$key}->{'TemperatureMax'};
+                $data[$key]['rain_percentage'] = $response_json->{'Daily'}{$key}->{'RainPercentage'};
+            }
+            dump($data);
+
+
+            return;
         }
 
 

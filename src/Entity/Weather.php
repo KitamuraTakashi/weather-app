@@ -48,6 +48,11 @@ class Weather
      */
     private $rain_percentage;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $pinpoint_code;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +126,18 @@ class Weather
     public function setRainPercentage(int $rain_percentage): self
     {
         $this->rain_percentage = $rain_percentage;
+
+        return $this;
+    }
+
+    public function getPinpointCode(): ?string
+    {
+        return $this->pinpoint_code;
+    }
+
+    public function setPinpointCode(string $pinpoint_code): self
+    {
+        $this->pinpoint_code = $pinpoint_code;
 
         return $this;
     }
