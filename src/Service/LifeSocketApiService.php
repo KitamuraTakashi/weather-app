@@ -53,7 +53,7 @@
             string $pinpointCode,
             int $days = 1,
             string $lang = 'ja'
-        ): void {
+        ) {
             $query = array_merge([
                 'days' => $days,
                 'lang' => $lang
@@ -62,6 +62,7 @@
             $apiUrl = $this->getApiUrl('/v1/weather/') . $pinpointCode;
 
             $response = $this->getApiData($apiUrl, $query);
+            return $response;
 
         }
 
@@ -110,10 +111,9 @@
                 $data[$key]['temperature_max'] = $response_json->{'Daily'}{$key}->{'TemperatureMax'};
                 $data[$key]['rain_percentage'] = $response_json->{'Daily'}{$key}->{'RainPercentage'};
             }
-            dump($data);
 
 
-            return;
+            return $data;
         }
 
 
